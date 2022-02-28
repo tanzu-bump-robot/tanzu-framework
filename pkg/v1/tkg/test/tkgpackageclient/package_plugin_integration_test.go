@@ -404,7 +404,7 @@ func setUpPrivateRegistry(kubeconfigPath, clusterName string) {
 
 	command := exec.NewCommand(
 		exec.WithCommand("kubectl"),
-		exec.WithArgs("patch", "configmap", "kapp-controller-config", "-n", "tkg-system", "--type", "merge", "-p", fmt.Sprintf("{\"data\":{\"dangerousSkipTLSVerify\":\"registry-svc.%s.svc.cluster.local\"}}", registryNamespace), "--context", kubeCtx, "--kubeconfig", kubeconfigPath),
+		exec.WithArgs("patch", "configmap", "kapp-controller-config", "-n", "tkg-system", "--type", "merge", "-p", fmt.Sprintf("{\"data\":{\"caCerts\":\"dummyPlaceholderForTesting\",\"dangerousSkipTLSVerify\":\"registry-svc.%s.svc.cluster.local\"}}", registryNamespace), "--context", kubeCtx, "--kubeconfig", kubeconfigPath),
 		exec.WithStdout(GinkgoWriter),
 	)
 	err := command.RunAndRedirectOutput(context.Background())
